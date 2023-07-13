@@ -30,6 +30,29 @@ void regact(struct sigaction *act){
 
 
 
+void write_routine(int sock , char *buf){
+    while(1){
+        fgets(buf, 64, stdin);
+        if(!strcmp(buf, "q\n" ) || !strcmp(buf, "Q\n") ){
+            shutdown(sock, SHUT_WR);
+            return;
+        }
+        write(sock, buf, strlen(buf));
+    }
+}
+
+void read_routine(int sock, char *buf){
+    while(1){
+        int str_len = read(sock, buf, 64);
+        if(str_len == 0){
+            return;
+        }
+        buf[str_len] =0;
+        printf("Message from server:%s", buf);
+    }
+}
+
+
 int main(int argc, char *argv[]){
     if(argc!= 2){
         printf("the server program run fail");

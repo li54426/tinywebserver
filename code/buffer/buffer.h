@@ -4,6 +4,7 @@
 #include<string>
 #include<vector>
 #include<atomic>
+#include<cstring>
 
 class Buffer{
 public:
@@ -22,10 +23,14 @@ public:
     void Append(void * str, size_t len);
     void Append(Buffer & buffer);
 
+    void HasWrite(int n);
+
     void EnsureWriteable(size_t len);
     
     size_t ReadFd(int fd, int *saveErrno);
     size_t WriteFd(int fd, int *savaError);
+    void RetrieveAll();
+    std::string RetrieveAllToStr();
 
 
 private:

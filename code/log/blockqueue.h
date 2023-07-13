@@ -26,6 +26,7 @@ public:
     size_t size();
     void clear();
     void close();
+    void flush();
 
     
 
@@ -120,9 +121,21 @@ template<class T>
 void BlockQueue<T> :: close(){
     lock_guard<mutex> locker(mtx_);
     std::cout<< "closed success"<< '\n';
-    ~qu_();
+    // qu_.clear();
     isClose_ = true;
 }
+
+
+template<class T>
+void BlockQueue<T>::flush(){
+    // 通知消费者
+    conCon_.notify_one();
+}
+
+
+
+
+
 
 #endif
 

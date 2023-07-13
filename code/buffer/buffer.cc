@@ -116,3 +116,28 @@ size_t Buffer::ReadFd(int fd, int *saveErrno){
     return len;
 
 }
+
+void Buffer::RetrieveAll(){
+    memset(&buffer_[0], 0, buffer_.size());
+    readPos_ = 0;
+    writePos_ = 0;
+}
+
+
+std::string Buffer::RetrieveAllToStr(){
+    std::string str(Peek(), ReadableBytes());
+    RetrieveAll();
+    return str;
+
+}
+
+void Buffer:: HasWrite(int n){
+    if(WriteableBytes() >= n){
+        writePos_ += n;
+    }
+
+    else{
+        MakeSpace_(n);
+    }
+    assert(WriteableBytes() >= n);
+}

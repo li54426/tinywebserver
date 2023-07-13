@@ -3,7 +3,7 @@
 
 const char *getString() {
     char *message = "Hello";
-    return message;  // 正确，返回指向只读字符串的常量指针
+    return message;  
 }
 
 void test_const(){
