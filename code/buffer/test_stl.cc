@@ -8,7 +8,7 @@
 using namespace std;
 // 以下会有问题
 template<typename T>
-std::ostream& operator<<(std::ostream& os, const T& c) {
+std::ostream& operator<<(std::ostream& os,  T& c) {
     os << '[';
     for (auto it = c.begin(); it != c.end(); ++it) {
         os << (*it);
@@ -22,10 +22,13 @@ std::ostream& operator<<(std::ostream& os, const T& c) {
 
 
 void test_assert(){
-    std::cout<< string("test_assert_run")<< '\n';
+    // std::cout<< string("test_assert_run")<< '\n';
     int a = 10;
     assert(a==5);
 }
+
+
+
 
 
 int main() {
