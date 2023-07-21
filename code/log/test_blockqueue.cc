@@ -31,9 +31,7 @@ int main() {
                 cout << "队列为空\n";
             }
 
-            if(i == 4){
-                queue.close();
-            }
+
             this_thread::sleep_for(std::chrono::seconds(2));
         }
     });

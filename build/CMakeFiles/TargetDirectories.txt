@@ -1,0 +1,3 @@
+/home/lihan/tinywebserver/build/CMakeFiles/mymuduo.dir
+/home/lihan/tinywebserver/build/CMakeFiles/edit_cache.dir
+/home/lihan/tinywebserver/build/CMakeFiles/rebuild_cache.dir

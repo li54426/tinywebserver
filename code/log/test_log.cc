@@ -6,7 +6,7 @@
 
 using namespace std;
 
-
+//  g++ test_log.cc log.h log.cc ../buffer/buffer.cc -o  test_log
 int main(){
     Log *log  = Log::GetInstance();
     
@@ -15,9 +15,11 @@ int main(){
 
     cout<< "test Write"<< '\n';
     log->Write(1, "%s %s", "test", "aaaa");
+    LOG_INFO("%s %s", "test", "aaaa" );
     cout<< "after Write"<< '\n';
     log->FlushLogThread();
     log-> Flush();
+    cout<< "finished all the func"<< '\n';
 
     return 1;
 }

@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/home/lihan/tinywebserver/build",
+  "command": "/usr/bin/g++ -Dmymuduo_EXPORTS   -g -std=c++14 -fPIC -g -fPIC -o CMakeFiles/mymuduo.dir/buffer.o -c /home/lihan/tinywebserver/buffer.cc",
+  "file": "/home/lihan/tinywebserver/buffer.cc"
+},
+{
+  "directory": "/home/lihan/tinywebserver/build",
+  "command": "/usr/bin/g++ -Dmymuduo_EXPORTS   -g -std=c++14 -fPIC -g -fPIC -o CMakeFiles/mymuduo.dir/log.o -c /home/lihan/tinywebserver/log.cc",
+  "file": "/home/lihan/tinywebserver/log.cc"
+},
+{
+  "directory": "/home/lihan/tinywebserver/build",
+  "command": "/usr/bin/g++ -Dmymuduo_EXPORTS   -g -std=c++14 -fPIC -g -fPIC -o CMakeFiles/mymuduo.dir/test.o -c /home/lihan/tinywebserver/test.cc",
+  "file": "/home/lihan/tinywebserver/test.cc"
+}
+]

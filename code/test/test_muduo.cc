@@ -6,13 +6,13 @@
 // 使用muduo开发回显服务器
 class EchoServer
 {
- public:
+public:
   EchoServer(muduo::net::EventLoop* loop,
              const muduo::net::InetAddress& listenAddr);
 
   void start(); 
 
- private:
+private:
   void onConnection(const muduo::net::TcpConnectionPtr& conn);
 
   void onMessage(const muduo::net::TcpConnectionPtr& conn,

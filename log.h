@@ -2,7 +2,7 @@
 
 #define LOG_H
 #include"blockqueue.h"
-#include "../buffer/buffer.h"
+#include "buffer.h"
 #include<mutex>
 #include<memory>
 #include<thread>
@@ -120,8 +120,24 @@ do{\
 
 
 #define LOG_ERROR(logmsg_format, ...) LOG_BASE(ERROR, logmsg_format, ##__VA_ARGS__);
-#define LOG_TATAL(logmsg_format, ...) LOG_BASE(FATAL, logmsg_format, ##__VA_ARGS__);
+//#define LOG_TATAL(logmsg_format, ...) LOG_BASE(FATAL, logmsg_format, ##__VA_ARGS__);
 
+#define LOG_FATAL( logmsg_format, ...)\
+do{\
+    Log * log = Log::GetInstance();\
+    log->Write(FATAL, logmsg_format, ##__VA_ARGS__);\
+    exit(-1); \ 
+}while(0);
+
+
+
+
+
+#ifdef MUDEBUG
+#define LOG_DEBUG(logmsgFormat, ...)  LOG_INFO(logmsgFormat, ##__VA_ARGS__)
+#else
+    #define LOG_DEBUG(logmsgFormat, ...)
+#endif
 
 
 #endif
