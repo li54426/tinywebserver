@@ -6,8 +6,18 @@
 },
 {
   "directory": "/home/lihan/tinywebserver/build",
+  "command": "/usr/bin/g++ -Dmymuduo_EXPORTS   -g -std=c++14 -fPIC -g -fPIC -o CMakeFiles/mymuduo.dir/channel.o -c /home/lihan/tinywebserver/channel.cc",
+  "file": "/home/lihan/tinywebserver/channel.cc"
+},
+{
+  "directory": "/home/lihan/tinywebserver/build",
   "command": "/usr/bin/g++ -Dmymuduo_EXPORTS   -g -std=c++14 -fPIC -g -fPIC -o CMakeFiles/mymuduo.dir/log.o -c /home/lihan/tinywebserver/log.cc",
   "file": "/home/lihan/tinywebserver/log.cc"
+},
+{
+  "directory": "/home/lihan/tinywebserver/build",
+  "command": "/usr/bin/g++ -Dmymuduo_EXPORTS   -g -std=c++14 -fPIC -g -fPIC -o CMakeFiles/mymuduo.dir/tcpconnection.o -c /home/lihan/tinywebserver/tcpconnection.cc",
+  "file": "/home/lihan/tinywebserver/tcpconnection.cc"
 },
 {
   "directory": "/home/lihan/tinywebserver/build",

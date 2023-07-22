@@ -136,7 +136,7 @@ https://github.com/Cdreamfly/ClusterChatServer
 
 #### 1.1 类图
 
-![img-uml](https://images2015.cnblogs.com/blog/90573/201512/90573-20151230150659854-913603511.jpg)
+![img-uml](./img/uml_class.jpg)
 
 
 图片来自网络, 侵删. 
@@ -191,4 +191,251 @@ https://github.com/Cdreamfly/ClusterChatServer
 
 
 
-tinywebserver
+### 回顾`muduo`的使用
+
+
+- 创建了一个基于 muduo 库的简单 TCP 服务器。服务器在指定的地址和端口上监听连接，并打印新连接和**收到的消息**。
+- 在这个`demo`中, 我们可以看出, 我们只需要重新设计`TcpServer::onConnection(const TcpConnectionPtr& conn) `以及`TcpServer::onMessage(const TcpConnectionPtr& conn, Buffer* buf, Timestamp time)`这两个函数. (实际上也可以不需要重新设计 `onConnection()`函数, 也能正常运行), 然后再使用 `set`方法绑定进去就可以了 
+- 只要能保证函数类型固定, 也可以用 `lambda`表达式来设计, 甚至还可以用两个类**重载**`operator()`的方法
+
+
+
+#### 类内函数( bind )版本
+
+```c++
+#include <muduo/net/EventLoop.h>
+#include <muduo/net/TcpServer.h>
+#include <iostream>
+
+using namespace muduo;
+using namespace muduo::net;
+
+class MyServer {
+public:
+    MyServer(EventLoop* loop, const InetAddress& listenAddr)
+        : server_(loop, listenAddr, "MyServer") {
+        server_.setConnectionCallback(
+            std::bind(&MyServer::onConnection, this, _1)
+        );
+        server_.setMessageCallback(
+            std::bind(&MyServer::onMessage, this, _1, _2, _3)
+        );
+    }
+
+    void start() {
+        server_.start();
+    }
+
+private:
+    void onConnection(const TcpConnectionPtr& conn) {
+        if (conn->connected()) {
+            std::cout << "New connection from "
+                      << conn->peerAddress().toIpPort() << std::endl;
+        } else {
+            std::cout << "Connection " << conn->name()
+                      << " is down" << std::endl;
+        }
+    }
+
+    void onMessage(const TcpConnectionPtr& conn, Buffer* buf, Timestamp time) {
+        std::string msg(buf->retrieveAllAsString());
+        std::cout << "Received message from "
+                  << conn->peerAddress().toIpPort()
+                  << ": " << msg << std::endl;
+        
+        conn-> send(msg);
+    }
+
+    TcpServer server_;
+};
+
+int main() {
+    EventLoop loop;
+    InetAddress listenAddr(8888);
+    MyServer server(&loop, listenAddr);
+
+    server.start();
+    loop.loop();
+
+    return 0;
+}
+
+```
+
+
+
+#### 以下是lambda表达式版本
+
+```c++
+// lambda表达式版本
+class MyServer {
+public:
+    MyServer(EventLoop* loop, const InetAddress& listenAddr)
+        : server_(loop, listenAddr, "MyServer") {
+        server_.setConnectionCallback(
+            [this](const TcpConnectionPtr& conn) {
+                if (conn->connected()) {
+                    std::cout << "New connection from "
+                              << conn->peerAddress().toIpPort() << std::endl;
+                } else {
+                    std::cout << "Connection " << conn->name()
+                              << " is down" << std::endl;
+                }
+            }
+        );
+        server_.setMessageCallback(
+            [this](const TcpConnectionPtr& conn, Buffer* buf, Timestamp time) {
+                std::string msg(buf->retrieveAllAsString());
+                std::cout << "Received message from "
+                          << conn->peerAddress().toIpPort()
+                          << ": " << msg << std::endl;
+            }
+        );
+    }
+
+    void start() {
+        server_.start();
+    }
+
+private:
+    TcpServer server_;
+};
+```
+
+
+
+
+
+
+
+#### 重载 `operator()`版本
+
+```c++
+class ConnectionCallback {
+public:
+    void operator()(const TcpConnectionPtr& conn) {
+        if (conn->connected()) {
+            std::cout << "New connection from "
+                      << conn->peerAddress().toIpPort() << std::endl;
+        } else {
+            std::cout << "Connection " << conn->name()
+                      << " is down" << std::endl;
+        }
+    }
+};
+
+class MessageCallback {
+public:
+    void operator()(const TcpConnectionPtr& conn, Buffer* buf, Timestamp time) {
+        std::string msg(buf->retrieveAllAsString());
+        std::cout << "Received message from "
+                  << conn->peerAddress().toIpPort()
+                  << ": " << msg << std::endl;
+    }
+};
+
+class MyServer {
+public:
+    MyServer(EventLoop* loop, const InetAddress& listenAddr)
+        : server_(loop, listenAddr, "MyServer") {
+        server_.setConnectionCallback(ConnectionCallback());
+        server_.setMessageCallback(MessageCallback());
+    }
+
+    void start() {
+        server_.start();
+    }
+
+private:
+    TcpServer server_;
+};
+```
+
+
+
+
+
+#### 一个问题: 如何主动给客户端发消息
+
+我们首先要明白:
+
+- `using TcpConnectionPtr = std::shared_ptr<TcpConnection>;`
+
+```c++
+#include <muduo/net/EventLoop.h>
+#include <muduo/net/TcpServer.h>
+#include <iostream>
+
+using namespace muduo;
+using namespace muduo::net;
+
+class MyServer {
+public:
+    MyServer(EventLoop* loop, const InetAddress& listenAddr)
+        : server_(loop, listenAddr, "MyServer") {
+        server_.setConnectionCallback(
+            [this](const TcpConnectionPtr& conn) {
+                if (conn->connected()) {
+                    std::cout << "New connection from "
+                              << conn->peerAddress().toIpPort() << std::endl;
+
+                    // 发送信息到客户端
+                    conn->send("Hello from server!\r\n");
+
+                    // 添加连接到列表中
+                    connections_.insert(conn);
+                } else {
+                    std::cout << "Connection " << conn->name()
+                              << " is down" << std::endl;
+
+                    // 从列表中移除连接
+                    connections_.erase(conn);
+                }
+            }
+        );
+        server_.setMessageCallback(
+            [this](const TcpConnectionPtr& conn, Buffer* buf, Timestamp time) {
+                std::string msg(buf->retrieveAllAsString());
+                std::cout << "Received message from "
+                          << conn->peerAddress().toIpPort()
+                          << ": " << msg << std::endl;
+
+                // 收到消息后回复客户端
+                conn->send("Received your message: " + msg);
+            }
+        );
+    }
+
+    void start() {
+        server_.start();
+    }
+
+    void sendToAllClients(const std::string& message) {
+        // 遍历所有连接，发送消息给每个客户端
+        for (const auto& conn : connections_) {
+            conn->send(message);
+        }
+    }
+
+private:
+    TcpServer server_;
+    std::set<TcpConnectionPtr> connections_;
+};
+
+int main() {
+    EventLoop loop;
+    InetAddress listenAddr(8888);
+    MyServer server(&loop, listenAddr);
+
+    server.start();
+    loop.loop();
+
+    return 0;
+}
+```
+
+
+
+
+
+

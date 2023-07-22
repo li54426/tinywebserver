@@ -126,7 +126,7 @@ do{\
 do{\
     Log * log = Log::GetInstance();\
     log->Write(FATAL, logmsg_format, ##__VA_ARGS__);\
-    exit(-1); \ 
+    exit(-1);\
 }while(0);
 
 

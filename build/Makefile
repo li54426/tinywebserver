@@ -145,6 +145,21 @@ buffer.s:
 .PHONY : buffer.s
 
 # target to build an object file
+channel.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/channel.o
+.PHONY : channel.o
+
+# target to preprocess a source file
+channel.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/channel.i
+.PHONY : channel.i
+
+# target to generate assembly for a file
+channel.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/channel.s
+.PHONY : channel.s
+
+# target to build an object file
 log.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/log.o
 .PHONY : log.o
@@ -158,6 +173,21 @@ log.i:
 log.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/log.s
 .PHONY : log.s
+
+# target to build an object file
+tcpconnection.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/tcpconnection.o
+.PHONY : tcpconnection.o
+
+# target to preprocess a source file
+tcpconnection.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/tcpconnection.i
+.PHONY : tcpconnection.i
+
+# target to generate assembly for a file
+tcpconnection.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/tcpconnection.s
+.PHONY : tcpconnection.s
 
 # target to build an object file
 test.o:
@@ -186,9 +216,15 @@ help:
 	@echo "... buffer.o"
 	@echo "... buffer.i"
 	@echo "... buffer.s"
+	@echo "... channel.o"
+	@echo "... channel.i"
+	@echo "... channel.s"
 	@echo "... log.o"
 	@echo "... log.i"
 	@echo "... log.s"
+	@echo "... tcpconnection.o"
+	@echo "... tcpconnection.i"
+	@echo "... tcpconnection.s"
 	@echo "... test.o"
 	@echo "... test.i"
 	@echo "... test.s"

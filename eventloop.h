@@ -7,6 +7,8 @@
 #include<memory>
 #include<mutex>
 
+#include"channel.h"
+
 #include"timestamp.h"
 class Channel;
 class Poller;
@@ -31,12 +33,18 @@ public:
     // 唤醒loop所在的线程
     void wakeup();
     
-    // event lop的方法
+    // 修改event loop的方法
+    // 为什么 用channel *
+    // 需要传入的参数包括 fd, 以及 events
+    // 直接将 channel* 传进去, 方便一些
     void updateChannel(Channel * );
     void removeChannel(Channel*);
     void hasChannel(Channel*);
 
     void assertInLoopThread();
+
+
+
 
 private:
 // functions

@@ -117,6 +117,12 @@ size_t Buffer::ReadFd(int fd, int *saveErrno){
 
 }
 
+void Buffer::Retrieve(int n){
+    readPos_ += n;
+}
+
+
+
 void Buffer::RetrieveAll(){
     memset(&buffer_[0], 0, buffer_.size());
     readPos_ = 0;

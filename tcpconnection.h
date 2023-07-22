@@ -46,7 +46,7 @@ public:
     TcpConnection(EventLoop* loop, const string name, 
         int sockfd, const InetAddress &local_addr, 
         const InetAddress &peer_addr);
-    ~TcpConnection();
+    ~TcpConnection() = default;
 
     EventLoop * getLoop()const {return loop_;}
     const string& name(){return name_;}
@@ -54,7 +54,7 @@ public:
     const InetAddress &peerAdddress(){return peer_addr_;}
 
     // 实际上就是链路的抽象
-    void send(void * message);
+    void send(void * message, int len);
     void send(string &message);
     void shutdown();
     void setTcpnodelay(bool on);
@@ -66,6 +66,8 @@ public:
     void setConnectionCallback(ConnectionCallback &cb);
     void setMessageCallback(ConnectionCallback &cb);
     void setWriteCompleteCallback(WriteCompleteCallback &cb);
+
+
     void setCloseCallback(CloseCallback & cb);
     void setHighWaterMarkCallback();
 
@@ -104,6 +106,7 @@ private:
     ConnectionCallback connection_callback_;
     MessageCallback message_callback_;
     WriteCompleteCallback write_complete_callback_;
+
 
     int high_water_mark_ ;
 

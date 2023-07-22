@@ -29,7 +29,11 @@ public:
     
     size_t ReadFd(int fd, int *saveErrno);
     size_t WriteFd(int fd, int *savaError);
+
+    // 读取了少字节的 信息
+    // 将readPos 移动到后面
     void RetrieveAll();
+    void Retrieve(int n );
     std::string RetrieveAllToStr();
 
 
