@@ -90,10 +90,13 @@ ReturnType LongClassName::ReallyReallyReallyLongFunctionName(
 }
 ```
 
+#### 0.3 写代码时尽可能突出逻辑
+
+- 在本项目代码中, 几乎没有在声明时就定义了函数, 方便以后重新梳理代码逻辑
+- 
 
 
-
-#### 0.3 不懂的地方是如何注释
+#### 0.4 不懂的地方是如何注释
 
 如果在源码中有不懂得地方, 会用以下方式注释
 
@@ -102,9 +105,16 @@ ReturnType LongClassName::ReallyReallyReallyLongFunctionName(
 ```
 
 
+#### 0.5 如果在写某一个模块的时候, 出现了 没有写过 的模块的代码怎么办
+
+- 给未知模块上声明你需要的函数, 并注明其作用
+- 当你写到未知模块上, 再写具体的实现
+- 原因可能是 模块是紧耦合的, 例如, Channel 是用于封装文件描述符的事件和回调，并与 EpollPoller（基于 epoll 的事件循环）一起使用。它们之间存在紧密的关系，以便实现事件驱动的网络编程。
 
 
-#### 0.4 在 C++ 项目中，什么时候该用 Boost，什么时候该用 STL 呢？
+
+
+#### 0.6 在 C++ 项目中，什么时候该用 Boost，什么时候该用 STL 呢？
 
 优先使用 STL，项目允许使用 boost 可以用 boost 作 STL **补充**。
 
@@ -117,11 +127,68 @@ https://github.com/Cdreamfly/ClusterChatServer
 
 
 
-#### 0.5 如果在写某一个模块的时候, 出现了没有写过的模块的代码怎么办
 
-- 给未知模块上声明你需要的函数, 并注明其作用
-- 当你写到未知模块上, 再写具体的实现
-- 原因可能是 模块是紧耦合的, 例如, Channel 是用于封装文件描述符的事件和回调，并与 EpollPoller（基于 epoll 的事件循环）一起使用。它们之间存在紧密的关系，以便实现事件驱动的网络编程。
+
+
+### 1 概论
+
+[Note]  1.2- 1.5都来自陈硕大大的书中
+
+#### 1.1 类图
+
+![img-uml](https://images2015.cnblogs.com/blog/90573/201512/90573-20151230150659854-913603511.jpg)
+
+
+图片来自网络, 侵删. 
+
+
+#### 1.2 公开接口
+
+- Buffer仿Netty ChannelBuffer的buffer class，数据的读写通过buffer进行。用户代码不需要调用read(2)/write(2)，只需要处理收到的数据和准备好要发送的数据（§7.4）。
+- InetAddress封装IPv4地址（end point），注意，它不能解析域名，只认IP地址。因为直接用gethostbyname(3)解析域名会阻塞IO线程。
+- EventLoop事件循环（反应器Reactor），每个线程只能有一个EventLoop实体，它负责IO和定时器事件的分派。它用eventfd(2)来异步唤醒，这有别于传统的用一对pipe(2)的办法。它用TimerQueue作为计时器管理，用Poller作为IO multiplexing。
+- EventLoopThread启动一个线程，在其中运行EventLoop::loop()。
+- TcpConnection整个网络库的核心，封装一次TCP连接，注意它不能发起连接。
+- TcpClient用于编写网络客户端，能发起连接，并且有重试功能。
+- TcpServer用于编写网络服务器，接受客户的连接。
+
+
+
+#### 1.3 生命周期
+
+- 在这些类中，TcpConnection的生命期依靠shared_ptr管理（即用户和库共同控制）。
+- Buffer的生命期由TcpConnection控制。其余类的生命期由用户控制。
+- Buffer和InetAddress具有值语义，可以拷贝；其他class都是对象语义，不可以拷贝。
+
+
+
+#### 1.4 内部实现
+
+- Channel是selectable IO channel，负责注册与响应IO事件，注意它不拥有filedescriptor。它是Acceptor、Connector、EventLoop、TimerQueue、TcpConnection的成员，生命期由后者控制。
+- Socket是一个RAIIhandle，封装一个filedescriptor，并在析构时关闭fd。它是Acceptor、TcpConnection的成员，生命期由后者控制。EventLoop、TimerQueue也拥有fd，但是不封装为Socket class。
+- SocketsOps封装各种Sockets系统调用。
+- Poller是PollPoller和EPollPoller的基类，采用“电平触发”的语意。它是EventLoop的成员，生命期由后者控制。
+- PollPoller和EPollPoller封装poll(2)和epoll(4)两种IO multiplexing后端。poll的存在价值是便于调试，因为poll(2)调用是上下文无关的，用strace(1)很容易知道库的行为是否正确。
+- Connector用于发起TCP连接，它是TcpClient的成员，生命期由后者控制。
+- Acceptor用于接受TCP连接，它是TcpServer的成员，生命期由后者控制。
+- TimerQueue用timerfd实现定时，这有别于传统的设置poll/epoll_wait的等待时长的办法。TimerQueue用std::map来管理Timer，常用操作的复杂度是O(logN)，N为定时器数目。它是EventLoop的成员，生命期由后者控制。
+- EventLoopThreadPool用于创建IO线程池，用于把TcpConnection分派到某个EventLoop线程上。它是TcpServer的成员，生命期由后者控制。
+
+
+
+#### 1.5 网络编程的本质论
+
+我认为，TCP网络编程最本质的是处理三个半事件：
+
+- 1．连接的建立，包括服务端接受（accept）新连接和客户端成功发起（connect）连接。TCP连接一旦建立，客户端和服务端是平等的，可以各自收发数据。
+- 2．连接的断开，包括主动断开（close、shutdown）和被动断开（read(2)返回0）。
+- 3．消息到达，文件描述符可读。这是最为重要的一个事件，对它的处理方式决定了网络编程的风格（阻塞还是非阻塞，如何处理**分包**，应用层的缓冲如何设计，等等）。
+- 3.5 消息发送完毕，这算半个。对于低流量的服务，可以不必关心这个事件；另
+    外，这里的“发送完毕”是指将数据写入操作系统的缓冲区，将由TCP协议栈负责数据的发
+    送与重传，不代表对方已经收到数据。
+
+
+
 
 
 tinywebserver

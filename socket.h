@@ -39,6 +39,8 @@ public:
     /// Enable/disable SO_REUSEPORT
     void setReusePort(bool on);
 
+    void setKeepAlive(bool on);
+
 
 
 

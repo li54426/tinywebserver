@@ -9,7 +9,8 @@
 
 //class Channel;
 class EventLoop;
-class Timestamp;
+#include"timestamp.h"
+//class Timestamp;
 // Channel 的意思是通道
 // 封装了 sockfd 以及其感兴趣的事件, 如 EPOLLIN, EPOLLOUT等
 // 还绑定了poller返回的具体事件
@@ -35,6 +36,10 @@ public:
         close_callback_ = std::move(cb);
     }
 
+    void setErrorCallbak(EventCallback cb){
+        error_callback_= std::move(cb);
+    }
+
     // one loop per thread;
     EventLoop *ownerLoop(){return loop_; };
     void remove();
@@ -51,8 +56,13 @@ public:
     int index();
     void setIndex(int index);
 
+    void handleEvent(Timestamp);
 
-
+private:
+    // 向 poller 进行 更新
+    // 因为不含 poller , 所以需要 loop 进行调用
+    void update();
+    void handleEventWithGuard(Timestamp timestamp);
 
 
 private:
@@ -68,10 +78,6 @@ private:
     int revents_;
     // channel的状态, 是已经注册到epoll中还是没有添加, 又或者删除了
     int index_;
-
-    // 向 poller 进行 更新
-    // 因为不含 poller , 所以需要 loop 进行调用
-    void update();
 
 
     // 需要调用的时候, 就 a.read_callback_();
@@ -124,5 +130,23 @@ void Channel::set_revents(int events){
     revents_ = events;
 }
 
+
+void Channel::handleEvent(Timestamp timestamp){
+
+}
+
+void Channel::handleEventWithGuard(Timestamp receve_time){
+
+    if(events_ & POLLOUT){
+        write_callback_();
+    }
+
+    if(events_ & (POLLIN | POLLPRI | POLLRDHUP)){
+        read_callback_(receve_time);
+    }
+    if(revents_ & (POLLERR | POLLNVAL)){
+        error_callback_();
+    }
+}
 
 #endif

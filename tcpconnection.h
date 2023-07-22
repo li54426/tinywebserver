@@ -75,6 +75,10 @@ public:
 private:
     void handleRead(Timestamp);
 
+    void handleWrite();
+    void handleClose();
+    void handleError();
+
 
 
 

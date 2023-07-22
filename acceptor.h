@@ -21,6 +21,8 @@ public:
     void listen();
     bool listening()const;
 
+    void setNewConnectionCallback(const NewConnectionCallback & cb);
+
 private:
     void handleRead();
 
@@ -64,6 +66,14 @@ void Acceptor::listen(){
 bool Acceptor::listening()const{
     return listening_;
 }
+
+
+
+void Acceptor::setNewConnectionCallback(const NewConnectionCallback & cb){
+    new_connection_callback_ = std::move(cb);
+}
+
+
 
 // ###################[Question]#######################
 // void Acceptor::handleRead(){
