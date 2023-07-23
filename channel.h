@@ -64,6 +64,10 @@ public:
     int events();
     void set_revents(int );
 
+    bool isWriting();
+    bool isReading();
+
+
     // ###################[Question]#######################
     // 谁会调用 tie
     void tie(const std::shared_ptr<void> &obj);

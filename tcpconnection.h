@@ -34,7 +34,7 @@ using CloseCallback  = function<void(TcpConnectionPtr &)>;
 using WriteCompleteCallback = function<void(TcpConnectionPtr &)>;
 using MessageCallback = function<void(const TcpConnectionPtr&, Buffer *, Timestamp)>;
 
-
+using HighWaterMarkCallback = function<void(TcpConnectionPtr &, size_t )> ;
 
 /*
 * TcpServer => Acceptor => 又一个新用户连接, 通过 accept 拿到 connfd
@@ -64,12 +64,12 @@ public:
     bool isReading();
 
     void setConnectionCallback(ConnectionCallback &cb);
-    void setMessageCallback(ConnectionCallback &cb);
+    void setMessageCallback(MessageCallback &cb);
     void setWriteCompleteCallback(WriteCompleteCallback &cb);
 
 
     void setCloseCallback(CloseCallback & cb);
-    void setHighWaterMarkCallback();
+    void setHighWaterMarkCallback(HighWaterMarkCallback & cb);
 
     Buffer* inputBuffer();
     Buffer* outputBuffer();
@@ -80,6 +80,10 @@ private:
     void handleWrite();
     void handleClose();
     void handleError();
+
+    void sendInLoop(const void * data, size_t len);
+
+
 
 
 
@@ -102,16 +106,26 @@ private:
     Buffer input_buffer_;
     Buffer output_buffer_;
 
-
+    // ###################[Question]#######################
+    // 为什么会有 connection_callback, 不用处理连接
     ConnectionCallback connection_callback_;
     MessageCallback message_callback_;
     WriteCompleteCallback write_complete_callback_;
+    CloseCallback close_callback_;
+
+    HighWaterMarkCallback high_water_mark_callback_;
 
 
     int high_water_mark_ ;
 
+    enum StateE{
+        kDisConnected, kConnecting, kConnected, kDisconnection
+    };
+    int state_;
 
 
+
+    void setState(StateE state);
 
 };
 

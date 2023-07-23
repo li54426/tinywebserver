@@ -76,7 +76,15 @@ void Channel::set_revents(int events){
     revents_ = events;
 }
 
+bool Channel::isWriting()
+{
+    return events_ & kWriteEvent;
+}
 
+bool Channel::isReading()
+{
+    return events_ & kReadEvent;
+}
 void Channel::handleEvent(Timestamp receve_time){
     if(tied_){
         std::shared_ptr<void> guard =tie_.lock();

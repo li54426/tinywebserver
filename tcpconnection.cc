@@ -34,30 +34,62 @@ TcpConnection::TcpConnection(EventLoop* loop, const string name,
 void TcpConnection::send(void * message, int len){
     
 }
-void send(string &message);
-void shutdown();
-void setTcpnodelay(bool on);
-
-void startRead();
-void stopRead();
-bool isReading();
-
-void setConnectionCallback(ConnectionCallback &cb);
-void setMessageCallback(ConnectionCallback &cb);
-void setWriteCompleteCallback(WriteCompleteCallback &cb);
-void setCloseCallback(CloseCallback & cb);
-void setHighWaterMarkCallback();
-
-Buffer* TcpConnection::inputBuffer(){
-    return &input_buffer_;
+void TcpConnection::send(string &message){
+    if(state_ == kConnected){
+        // 判断当前代码是否在事件循环所在的线程中运行。
+        if(loop_ -> isInLoopThread()){
+            sendInLoop(message.c_str(), message.size());
+        }
+    }
 }
-Buffer* TcpConnection::outputBuffer(){
-    return &output_buffer_;
+
+
+void TcpConnection:: sendInLoop(const void * data, size_t len){
+
 }
+
+
+void TcpConnection::shutdown(){
+
+}
+void TcpConnection::setTcpnodelay(bool on){
+
+}
+
+void TcpConnection::startRead(){
+
+}
+void TcpConnection::stopRead(){
+
+}
+bool TcpConnection::isReading(){
+
+}
+
+void TcpConnection::setConnectionCallback(ConnectionCallback &cb){
+    connection_callback_ = cb;
+}
+void TcpConnection::setMessageCallback(MessageCallback &cb){
+    message_callback_ = cb;
+}
+
+void TcpConnection::setWriteCompleteCallback(WriteCompleteCallback &cb){
+    write_complete_callback_ = cb;
+}
+void TcpConnection::setCloseCallback(CloseCallback & cb){
+    close_callback_ = cb;
+}
+void TcpConnection::setHighWaterMarkCallback(HighWaterMarkCallback &cb){
+    high_water_mark_callback_ = cb;
+}
+
 
 
 void TcpConnection::handleRead(Timestamp timestamp){
     //
+
+    loop_-> assertInLoopThread();
+
     int saved_error = 0;
     ssize_t n = input_buffer_.ReadFd(channel_-> fd(), &saved_error);
     if(n> 0){
@@ -76,6 +108,10 @@ void TcpConnection::handleRead(Timestamp timestamp){
 
 
 void TcpConnection::handleWrite(){
+    loop_ ->assertInLoopThread();
+    if(channel_->isWriting()){
+
+    }
     int saved_error = 0;
     ssize_t n = output_buffer_.WriteFd(channel_->fd(), &saved_error);
     if(n>0){
@@ -84,3 +120,12 @@ void TcpConnection::handleWrite(){
     }
 
 }
+
+Buffer* TcpConnection::inputBuffer(){
+    return &input_buffer_;
+}
+Buffer* TcpConnection::outputBuffer(){
+    return &output_buffer_;
+}
+
+
