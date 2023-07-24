@@ -66,7 +66,7 @@ private:
     // 存储loop所有需要执行的所有回调操作
     std::vector<Functor> pending_functors_;
     // 保护 上面对象的v 线程安全
-    std::mutex mtx_; 
+    std::mutex functors_mtx_; 
     
 };
 

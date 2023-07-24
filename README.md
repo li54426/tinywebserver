@@ -1,12 +1,38 @@
 # tinywebserver
-first change
+
+本项目分三部分
+- 首先实现一个线程池`ThreadPool`
+- 其次实现网络库`NetLib`
+- 最后实现上层的`webserver`
+
+
+
+其他项目
+
+- [衍生项目, 剖析muduo源码(未做)]()
+- [设计模式](https://github.com/li54426/Design_patterns_cpp)
+- [STL笔记](https://github.com/li54426/STL_Notes)
+- [c语言]()
+
 
 [note: ] 不到100行的代码就只有一个`.h`文件, 就直接在头文件中实现
+[note2: ]只有.h 文件，没有.cc 文件，cmake 默认忽略么, 所以上一条忽略. 因此添加了一个章节 声明和定义分离的好处
+
+
+
+
+
+
+
+muduo 库中的线程池并不是传统意义上的线程池。muduo 库的线程池使用了一个线程池汇总器（ThreadPool），其中包含一个任务队列和一组线程，这些线程是动态增长和缩减的。当提交一个任务时，线程池会根据当前负载情况自动创建或销毁线程来执行任务，以充分利用系统资源。
+
+线程池**实现**可以看`./thread_pool`文件夹
+
 
 
 ### 0 代码风格
 - [C++ 风格指南](https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/contents/)
-- 
+- Cpplint 是一个 Python 脚本，作为一款开源免费的代码静态检测工具，Google 也使用它作为自己的 C++ 代码检测工具，也就是说，只要你想代码遵从 Google C++ 代码规范，那么 Cpplint 将会提供很好的代码静态检测支持。
 
 
 #### 1. 命名规则
@@ -110,6 +136,13 @@ ReturnType LongClassName::ReallyReallyReallyLongFunctionName(
 - 给未知模块上声明你需要的函数, 并注明其作用
 - 当你写到未知模块上, 再写具体的实现
 - 原因可能是 模块是紧耦合的, 例如, Channel 是用于封装文件描述符的事件和回调，并与 EpollPoller（基于 epoll 的事件循环）一起使用。它们之间存在紧密的关系，以便实现事件驱动的网络编程。
+
+
+
+
+
+
+
 
 
 

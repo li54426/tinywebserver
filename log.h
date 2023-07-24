@@ -112,11 +112,11 @@ do{\
 #define LOG_INFO(logmsg_format, ...) LOG_BASE(INFO, logmsg_format, ##__VA_ARGS__) ;
 
 
-#define LOG_DEBUG(logmsg_format, ...)\
-do{\
-    Log * log = Log::GetInstance();\
-    log->Write(DEBUG, logmsg_format, ##__VA_ARGS__)\
-}while(0);
+// #define LOG_DEBUG(logmsg_format, ...)\
+// do{\
+//     Log * log = Log::GetInstance();\
+//     log->Write(DEBUG, logmsg_format, ##__VA_ARGS__)\
+// }while(0);
 
 
 #define LOG_ERROR(logmsg_format, ...) LOG_BASE(ERROR, logmsg_format, ##__VA_ARGS__);

@@ -1,0 +1,18 @@
+#include"currentthread.h"
+
+void CurrentThread::cacheTid()
+{
+        if(t_cachedTid == 0){
+            // 通过系统调用, 获取当前 tid 
+            t_cachedTid = static_cast<pid_t>(::syscall(SYS_gettid));
+        }
+}
+
+
+int CurrentThread::tid(){
+        // `__builtin_expect((x > 0), 1)` 表示条件 `x > 0` 的发生概率很高。
+        if(__builtin_expect(t_cachedTid == 0, 0) ){
+            cacheTid();
+        }
+        return t_cachedTid;
+}

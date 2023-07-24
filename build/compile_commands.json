@@ -11,6 +11,16 @@
 },
 {
   "directory": "/home/lihan/tinywebserver/build",
+  "command": "/usr/bin/g++ -Dmymuduo_EXPORTS   -g -std=c++14 -fPIC -g -fPIC -o CMakeFiles/mymuduo.dir/currentthread.o -c /home/lihan/tinywebserver/currentthread.cc",
+  "file": "/home/lihan/tinywebserver/currentthread.cc"
+},
+{
+  "directory": "/home/lihan/tinywebserver/build",
+  "command": "/usr/bin/g++ -Dmymuduo_EXPORTS   -g -std=c++14 -fPIC -g -fPIC -o CMakeFiles/mymuduo.dir/eventloop.o -c /home/lihan/tinywebserver/eventloop.cc",
+  "file": "/home/lihan/tinywebserver/eventloop.cc"
+},
+{
+  "directory": "/home/lihan/tinywebserver/build",
   "command": "/usr/bin/g++ -Dmymuduo_EXPORTS   -g -std=c++14 -fPIC -g -fPIC -o CMakeFiles/mymuduo.dir/log.o -c /home/lihan/tinywebserver/log.cc",
   "file": "/home/lihan/tinywebserver/log.cc"
 },
@@ -23,5 +33,10 @@
   "directory": "/home/lihan/tinywebserver/build",
   "command": "/usr/bin/g++ -Dmymuduo_EXPORTS   -g -std=c++14 -fPIC -g -fPIC -o CMakeFiles/mymuduo.dir/test.o -c /home/lihan/tinywebserver/test.cc",
   "file": "/home/lihan/tinywebserver/test.cc"
+},
+{
+  "directory": "/home/lihan/tinywebserver/build",
+  "command": "/usr/bin/g++ -Dmymuduo_EXPORTS   -g -std=c++14 -fPIC -g -fPIC -o CMakeFiles/mymuduo.dir/timestamp.o -c /home/lihan/tinywebserver/timestamp.cc",
+  "file": "/home/lihan/tinywebserver/timestamp.cc"
 }
 ]

@@ -7,7 +7,7 @@ const int Channel::kWriteEvent = POLLOUT;
 
 Channel::Channel(EventLoop* loop, int fd):
 loop_(loop), fd_(fd), events_(0), revents_(0), index_(-1), addedToLoop_(false),
-event_handing_(false)
+event_handling_(false)
 {}
 
 void Channel::tie(const std:: shared_ptr<void> & obj){
@@ -85,6 +85,9 @@ bool Channel::isReading()
 {
     return events_ & kReadEvent;
 }
+
+
+
 void Channel::handleEvent(Timestamp receve_time){
     if(tied_){
         std::shared_ptr<void> guard =tie_.lock();
@@ -104,7 +107,7 @@ int Channel::events(){
 
 
 void Channel::handleEventWithGuard(Timestamp receve_time){
-    event_handing_ = true;
+    event_handling_ = true;
     if(events_ & POLLOUT){
         write_callback_();
     }
@@ -115,5 +118,5 @@ void Channel::handleEventWithGuard(Timestamp receve_time){
     if(revents_ & (POLLERR | POLLNVAL)){
         error_callback_();
     }
-    event_handing_ = false;
+    event_handling_ = false;
 }

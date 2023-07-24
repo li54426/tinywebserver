@@ -16,9 +16,9 @@ public:
     using ChannelList = std::vector<Channel*>;
 
     Poller(EventLoop *);
-    ~Poller();
+    ~Poller() = default;
 
-    virtual Timestamp poll(int timeoutMs, ChannelList activeChannels) = 0;
+    virtual Timestamp poll(int timeoutMs, ChannelList *activeChannels) = 0;
     virtual void updateChannel(Channel *channel) = 0;
     virtual void removeChannel(Channel *channel) = 0;
 
@@ -48,6 +48,13 @@ bool Poller::hasChannel(Channel *channel)const{
 
     return it!= channels_.end() && it->second == channel;
 }
+
+
+
+
+  void Poller::assertInLoopThread() const{
+    loop_->assertInLoopThread();
+  }
 
 
 #endif

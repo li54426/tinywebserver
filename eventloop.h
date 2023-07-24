@@ -6,12 +6,31 @@
 #include<vector>
 #include<memory>
 #include<mutex>
-
+#include"log.h"
 #include"channel.h"
 
 #include"timestamp.h"
+
+#include"sys/eventfd.h"
+
+#include"currentthread.h"
+
+
+// #include"poller.h"
 class Channel;
 class Poller;
+
+
+/**
+ *              mainLoop
+ * 
+ *      no ==================== 生产者-消费者的线程安全的队列
+ * 
+ *  subLoop1     subLoop2     subLoop3
+ */ 
+
+
+
 class EventLoop{
 public:
     using Functor = std::function<void()>;
@@ -27,7 +46,7 @@ public:
     Timestamp pollerReturnTime()const{return poll_return_time_;}
 
 
-    // #####################[]###################
+    // #####################[Question]###################
     // 在当前loop中执行回调
     void runInLoop(Functor cb);
     // 将cb放入队列中, 唤醒 loop 所在的线程, 执行 cb
@@ -49,7 +68,7 @@ public:
     // 直接将 channel* 传进去, 方便一些
     void updateChannel(Channel * );
     void removeChannel(Channel*);
-    void hasChannel(Channel*);
+    bool hasChannel(Channel*);
 
 
 
@@ -58,8 +77,10 @@ public:
 
 private:
 // functions
-    // wakeup
+    // wakeupfd 的 读操作
     void handleRead();
+
+
     // 执行回调
     void doPendingFunctors();
 
@@ -74,24 +95,29 @@ private:
     std::atomic_bool quit_;
     std::atomic_bool has_callback_functors_;
 
+    bool event_handling_;
+    int64_t iteration_;
+
     // 记录 自己的 thread id
     const int thread_id_;
     
     // 返回 发生事件的时间点
     Timestamp poll_return_time_;
-    std::unique_ptr <Poller> poller;
+    std::unique_ptr <Poller> poller_;
+    bool calling_pending_functors_;
 
     // 当mainloop 获取一个新用户的channel 通过轮询算法选择一个 subloop
     // 通过该成员 **唤醒** subloop 处理 channel
     // #####################[Question]#########################
     // wakeup_channel 要封装 wakeup_fd
+    // 类型为 eventfd
     int wakeup_fd_; 
     std::unique_ptr<Channel> wakeup_channel_;
 
     // 存储loop所有需要执行的所有回调操作
     std::vector<Functor> pending_functors_;
     // 保护 上面对象的vector 线程安全
-    std::mutex mtx_; 
+    std::mutex functors_mtx_; 
     
 };
 

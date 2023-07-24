@@ -160,6 +160,36 @@ channel.s:
 .PHONY : channel.s
 
 # target to build an object file
+currentthread.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/currentthread.o
+.PHONY : currentthread.o
+
+# target to preprocess a source file
+currentthread.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/currentthread.i
+.PHONY : currentthread.i
+
+# target to generate assembly for a file
+currentthread.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/currentthread.s
+.PHONY : currentthread.s
+
+# target to build an object file
+eventloop.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/eventloop.o
+.PHONY : eventloop.o
+
+# target to preprocess a source file
+eventloop.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/eventloop.i
+.PHONY : eventloop.i
+
+# target to generate assembly for a file
+eventloop.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/eventloop.s
+.PHONY : eventloop.s
+
+# target to build an object file
 log.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/log.o
 .PHONY : log.o
@@ -204,6 +234,21 @@ test.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/test.s
 .PHONY : test.s
 
+# target to build an object file
+timestamp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/timestamp.o
+.PHONY : timestamp.o
+
+# target to preprocess a source file
+timestamp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/timestamp.i
+.PHONY : timestamp.i
+
+# target to generate assembly for a file
+timestamp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/timestamp.s
+.PHONY : timestamp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -219,6 +264,12 @@ help:
 	@echo "... channel.o"
 	@echo "... channel.i"
 	@echo "... channel.s"
+	@echo "... currentthread.o"
+	@echo "... currentthread.i"
+	@echo "... currentthread.s"
+	@echo "... eventloop.o"
+	@echo "... eventloop.i"
+	@echo "... eventloop.s"
 	@echo "... log.o"
 	@echo "... log.i"
 	@echo "... log.s"
@@ -228,6 +279,9 @@ help:
 	@echo "... test.o"
 	@echo "... test.i"
 	@echo "... test.s"
+	@echo "... timestamp.o"
+	@echo "... timestamp.i"
+	@echo "... timestamp.s"
 .PHONY : help
 
 

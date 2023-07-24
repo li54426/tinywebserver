@@ -20,10 +20,13 @@
 // 还绑定了poller返回的具体事件
 // 一个 EventLoop 可以有很多个channel;
 // Channel 类负责将底层的事件（如套接字的可读 / 可写事件）**转发** 给相应的回调函数进行处理
+
+class EventLoop;
 class Channel{
 public:
     using EventCallback = std::function<void()> ;
     using ReadEventCallback = std::function<void(Timestamp)>;
+    
     Channel(EventLoop *loop, int fd);
     ~Channel();
 
@@ -105,7 +108,7 @@ private:
     int index_;
 
     // 是否在处理事件
-    bool event_handing_;
+    bool event_handling_;
 
 
     // 需要调用的时候, 就 a.read_callback_();
