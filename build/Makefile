@@ -145,6 +145,21 @@ buffer.s:
 .PHONY : buffer.s
 
 # target to build an object file
+callbacks.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/callbacks.o
+.PHONY : callbacks.o
+
+# target to preprocess a source file
+callbacks.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/callbacks.i
+.PHONY : callbacks.i
+
+# target to generate assembly for a file
+callbacks.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/callbacks.s
+.PHONY : callbacks.s
+
+# target to build an object file
 channel.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/channel.o
 .PHONY : channel.o
@@ -220,6 +235,21 @@ tcpconnection.s:
 .PHONY : tcpconnection.s
 
 # target to build an object file
+tcpserver.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/tcpserver.o
+.PHONY : tcpserver.o
+
+# target to preprocess a source file
+tcpserver.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/tcpserver.i
+.PHONY : tcpserver.i
+
+# target to generate assembly for a file
+tcpserver.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/tcpserver.s
+.PHONY : tcpserver.s
+
+# target to build an object file
 test.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/test.o
 .PHONY : test.o
@@ -233,6 +263,21 @@ test.i:
 test.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/test.s
 .PHONY : test.s
+
+# target to build an object file
+test_eventloop.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/test_eventloop.o
+.PHONY : test_eventloop.o
+
+# target to preprocess a source file
+test_eventloop.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/test_eventloop.i
+.PHONY : test_eventloop.i
+
+# target to generate assembly for a file
+test_eventloop.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/test_eventloop.s
+.PHONY : test_eventloop.s
 
 # target to build an object file
 timestamp.o:
@@ -261,6 +306,9 @@ help:
 	@echo "... buffer.o"
 	@echo "... buffer.i"
 	@echo "... buffer.s"
+	@echo "... callbacks.o"
+	@echo "... callbacks.i"
+	@echo "... callbacks.s"
 	@echo "... channel.o"
 	@echo "... channel.i"
 	@echo "... channel.s"
@@ -276,9 +324,15 @@ help:
 	@echo "... tcpconnection.o"
 	@echo "... tcpconnection.i"
 	@echo "... tcpconnection.s"
+	@echo "... tcpserver.o"
+	@echo "... tcpserver.i"
+	@echo "... tcpserver.s"
 	@echo "... test.o"
 	@echo "... test.i"
 	@echo "... test.s"
+	@echo "... test_eventloop.o"
+	@echo "... test_eventloop.i"
+	@echo "... test_eventloop.s"
 	@echo "... timestamp.o"
 	@echo "... timestamp.i"
 	@echo "... timestamp.s"

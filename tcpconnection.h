@@ -63,13 +63,16 @@ public:
     void stopRead();
     bool isReading();
 
-    void setConnectionCallback(ConnectionCallback &cb);
-    void setMessageCallback(MessageCallback &cb);
-    void setWriteCompleteCallback(WriteCompleteCallback &cb);
+    void setConnectionCallback(const ConnectionCallback &cb);
+    void setMessageCallback(const MessageCallback &cb);
+    void setWriteCompleteCallback(const WriteCompleteCallback &cb);
 
 
-    void setCloseCallback(CloseCallback & cb);
-    void setHighWaterMarkCallback(HighWaterMarkCallback & cb);
+    void setCloseCallback(const CloseCallback & cb);
+    void setHighWaterMarkCallback(const HighWaterMarkCallback & cb);
+
+    void connectDestroyed();  
+
 
     Buffer* inputBuffer();
     Buffer* outputBuffer();

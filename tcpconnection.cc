@@ -66,20 +66,20 @@ bool TcpConnection::isReading(){
 
 }
 
-void TcpConnection::setConnectionCallback(ConnectionCallback &cb){
+void TcpConnection::setConnectionCallback(const ConnectionCallback &cb){
     connection_callback_ = cb;
 }
-void TcpConnection::setMessageCallback(MessageCallback &cb){
+void TcpConnection::setMessageCallback(const MessageCallback &cb){
     message_callback_ = cb;
 }
 
-void TcpConnection::setWriteCompleteCallback(WriteCompleteCallback &cb){
+void TcpConnection::setWriteCompleteCallback(const WriteCompleteCallback &cb){
     write_complete_callback_ = cb;
 }
-void TcpConnection::setCloseCallback(CloseCallback & cb){
+void TcpConnection::setCloseCallback(const CloseCallback & cb){
     close_callback_ = cb;
 }
-void TcpConnection::setHighWaterMarkCallback(HighWaterMarkCallback &cb){
+void TcpConnection::setHighWaterMarkCallback(const HighWaterMarkCallback &cb){
     high_water_mark_callback_ = cb;
 }
 

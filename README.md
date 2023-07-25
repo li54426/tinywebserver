@@ -12,7 +12,7 @@
 - [衍生项目, 剖析muduo源码(未做)]()
 - [设计模式](https://github.com/li54426/Design_patterns_cpp)
 - [STL笔记](https://github.com/li54426/STL_Notes)
-- [c语言]()
+- [c内存管理]()
 
 
 [note: ] 不到100行的代码就只有一个`.h`文件, 就直接在头文件中实现
@@ -20,6 +20,8 @@
 
 
 
+
+这个错误是因为在 TcpConnection 类中，setCloseCallback 函数的参数类型是非常量左值引用 CloseCallback&，而在 TcpServer 类的成员函数 newConnection 中使用了 std::bind 绑定函数时，生成了一个临时的右值 CloseCallback 对象，无法将其绑定到非常量左值引用参数上。
 
 
 
@@ -465,10 +467,39 @@ int main() {
 
     return 0;
 }
+
 ```
 
 
+是的，可以使用 shared_ptr<> 来绑定另一个类的成员函数。shared_ptr<> 是 C++11 引入的智能指针，用于管理动态分配的对象的生命周期，并通过引用计数来跟踪共享所有权。
 
+要绑定另一个类的成员函数，您可以使用 std::bind（或者在 C++11 之后，可以使用更推荐的 Lambda 表达式）来创建一个函数对象，然后使用 shared_ptr<> 来管理函数对象所绑定的对象的生命周期。
 
+下面是一个示例代码，演示了如何使用 shared_ptr<> 绑定另一个类的成员函数：
+
+```c++
+#include <iostream>
+#include <functional>
+#include <memory>
+
+class MyClass {
+public:
+    void memberFunction(int value) {
+        std::cout << "Member function called with value: " << value << std::endl;
+    }
+};
+
+int main() {
+    std::shared_ptr<MyClass> myClassPtr = std::make_shared<MyClass>();
+
+    // 使用 shared_ptr<> 绑定 MyClass 的成员函数
+    auto functionObject = std::bind(&MyClass::memberFunction, myClassPtr, std::placeholders::_1);
+
+    // 调用绑定的函数对象
+    functionObject(42);
+
+    return 0;
+}
+```
 
 
