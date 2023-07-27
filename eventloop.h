@@ -50,11 +50,14 @@ public:
     // 在当前loop中执行回调
     void runInLoop(Functor cb);
     // 将cb放入队列中, 唤醒 loop 所在的线程, 执行 cb
+    // 用于将函数对象（回调函数）放入事件循环的任务队列中
     void queueInLoop(Functor cb);
 
 
     // 线程相关
     void assertInLoopThread();
+
+    // 是不是 loop的这个线程
     bool isInLoopThread();
 
 

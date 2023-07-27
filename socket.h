@@ -7,6 +7,9 @@
 #include"log.h"
 #include"inetaddress.h"
 #include<unistd.h>
+#include"netinet/tcp.h"
+
+
 
 int creatNonBlocking();
 
@@ -34,6 +37,9 @@ public:
     void setReusePort(bool on);
 
     void setKeepAlive(bool on);
+
+
+    void shutdownWrite();
 
 
 

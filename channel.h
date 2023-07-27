@@ -97,6 +97,8 @@ private:
     bool addedToLoop_ ;
 
     bool tied_;
+
+    
     std::weak_ptr<void> tie_;
 
 

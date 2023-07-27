@@ -20,7 +20,7 @@
 
 
 
-
+#### 为什么设置回调函数需要 const ref
 这个错误是因为在 TcpConnection 类中，setCloseCallback 函数的参数类型是非常量左值引用 CloseCallback&，而在 TcpServer 类的成员函数 newConnection 中使用了 std::bind 绑定函数时，生成了一个临时的右值 CloseCallback 对象，无法将其绑定到非常量左值引用参数上。
 
 

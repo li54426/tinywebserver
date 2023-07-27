@@ -12,7 +12,7 @@ message_callback_(defaultMessageCallback),
 next_conn_id_(1)
 {
     acceptor_->setNewConnectionCallback(std::bind(
-        &TcpServer::connection_callback_, this
+        &TcpServer::newConnection, this,_1, _2
     ));
 }
 
@@ -27,9 +27,32 @@ TcpServer::~TcpServer(){
     }
 }
 
+void TcpServer::setConnectionCallback(const ConnectionCallback &cb){
+    connection_callback_ = cb;
+}
+void TcpServer::setMessageCallback(const MessageCallback &cb){
+    message_callback_ = cb;
+}
+void TcpServer::setWriteCompleteCallback(const WriteCompleteCallback &cb){
+    write_complete_callback_ = cb;
+}
+
+void TcpServer::setThreadInitCallback(const ThreadInitCallback &cb){
+    thread_init_callback_ = cb;
+}
+
+
+
 void TcpServer::setNumThread(int num_thread){
     assert(num_thread > 0);
     thread_pool_->setThreadNum(num_thread);
+}
+
+
+
+
+std::shared_ptr<EventLoopThreadPool> TcpServer::threadPool(){
+    return thread_pool_;
 }
 
 
@@ -84,3 +107,12 @@ void TcpServer::newConnection(int sockfd, const InetAddress & peer_addr){
 void TcpServer::removeConnection(const TcpConnectionPtr& conn){
   loop_->runInLoop(std::bind(&TcpServer::removeConnectionInLoop, this, conn));
 }
+
+// 
+void TcpServer::removeConnectionInLoop(const TcpConnectionPtr & conn){
+    loop_-> assertInLoopThread();
+    EventLoop * io_loop = conn-> getLoop();
+    io_loop->queueInLoop(std::bind(&TcpConnection::connectDestroyed, conn));
+
+}
+

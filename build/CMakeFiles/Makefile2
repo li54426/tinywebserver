@@ -63,7 +63,7 @@ CMAKE_BINARY_DIR = /home/lihan/tinywebserver/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/mymuduo.dir/all
+all: CMakeFiles/testmuduo.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -71,34 +71,34 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/mymuduo.dir/clean
+clean: CMakeFiles/testmuduo.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/mymuduo.dir
+# Target rules for target CMakeFiles/testmuduo.dir
 
 # All Build rule for target.
-CMakeFiles/mymuduo.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lihan/tinywebserver/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12 "Built target mymuduo"
-.PHONY : CMakeFiles/mymuduo.dir/all
+CMakeFiles/testmuduo.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/testmuduo.dir/build.make CMakeFiles/testmuduo.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/testmuduo.dir/build.make CMakeFiles/testmuduo.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lihan/tinywebserver/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19 "Built target testmuduo"
+.PHONY : CMakeFiles/testmuduo.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/mymuduo.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lihan/tinywebserver/build/CMakeFiles 12
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/mymuduo.dir/all
+CMakeFiles/testmuduo.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lihan/tinywebserver/build/CMakeFiles 19
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/testmuduo.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/lihan/tinywebserver/build/CMakeFiles 0
-.PHONY : CMakeFiles/mymuduo.dir/rule
+.PHONY : CMakeFiles/testmuduo.dir/rule
 
 # Convenience name for target.
-mymuduo: CMakeFiles/mymuduo.dir/rule
-.PHONY : mymuduo
+testmuduo: CMakeFiles/testmuduo.dir/rule
+.PHONY : testmuduo
 
 # clean rule for target.
-CMakeFiles/mymuduo.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mymuduo.dir/build.make CMakeFiles/mymuduo.dir/clean
-.PHONY : CMakeFiles/mymuduo.dir/clean
+CMakeFiles/testmuduo.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/testmuduo.dir/build.make CMakeFiles/testmuduo.dir/clean
+.PHONY : CMakeFiles/testmuduo.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

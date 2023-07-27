@@ -12,4 +12,5 @@ aux_source_directory(. SRC_LIST)
 
 
 # 编译生成动态库, 最终会生成 lib/mymuduo.so
-add_library(mymuduo SHARED ${SRC_LIST})
+#add_library(mymuduo SHARED ${SRC_LIST})
+add_executable(testmuduo ${SRC_LIST})

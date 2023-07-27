@@ -94,6 +94,7 @@ void EventLoop::loop(){
 
         for(Channel *channel : active_channles_){
             current_active_channel_ = channel;
+            // 通过这个总的接口, 实现r. w的回调
             current_active_channel_->handleEvent(poll_return_time_);
 
         }
@@ -145,6 +146,8 @@ void EventLoop::runInLoop(Functor cb){
 void EventLoop::queueInLoop(Functor cb){
     {
         std:: unique_lock<std::mutex> locker(functors_mtx_);
+
+        // 放入 回调函数的 vector 中
         pending_functors_.emplace_back(cb);
 
     }
@@ -157,7 +160,7 @@ void EventLoop::queueInLoop(Functor cb){
 }
 
 
-// 和 handleWrite 相反的, 
+// 和 handleWrite 相反的, 肯定时其他线程调用该函数
 void EventLoop::wakeup(){
     uint64_t one = 1;
     ssize_t n =  ::write(wakeup_fd_, &one, sizeof one);

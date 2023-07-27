@@ -19,8 +19,13 @@
 #include<memory>
 #include<map>
 
+using namespace std::placeholders;
 
 
+// 最终向用户提供的接口
+// 4 个设置回调函数 的借口
+// 设置线程
+// 开启监听 start(), 创建线程池
 class TcpServer{
 public:
       enum Option
@@ -33,6 +38,7 @@ public:
     using ThreadInitCallback = std::function<void(EventLoop *)> ;
     using ConnectionMap = std::map<std::string,  TcpConnectionPtr> ;
 
+    // 隐含着设置回调的过程
     TcpServer(EventLoop *, const InetAddress&, const std::string&, Option option = kNoReusePort);
     ~TcpServer();
 
@@ -45,13 +51,18 @@ public:
 
     void setNumThread(int numthread);
 
+    // ###################[Question]#######################
+    // 为什么要设置 返回线程池的函数
+    std::shared_ptr<EventLoopThreadPool> threadPool();
 
+    // 开启监听 start(), 创建线程池
     void start();
 private:
     void newConnection(int sockfd, const InetAddress &peer_addr);
 
     void removeConnection(const TcpConnectionPtr &conn);
 
+    // // 移除 sub loop 连接的函数。
     void removeConnectionInLoop(const TcpConnectionPtr &conn);
 
 
@@ -64,7 +75,7 @@ private:
 
     ConnectionMap connections_;
     std::unique_ptr<Acceptor> acceptor_;
-    std::unique_ptr<EventLoopThreadPool> thread_pool_;
+    std::shared_ptr<EventLoopThreadPool> thread_pool_;
 
     ConnectionCallback connection_callback_;
     MessageCallback message_callback_;

@@ -61,3 +61,58 @@ void Socket::shutdown(){
         LOG_ERROR("%s", "shutdown error");
     }
 }
+
+void Socket::setTcpNoDelay(bool on){
+    int optval= on ?1:0;
+    ::setsockopt(fd_, IPPROTO_TCP, TCP_NODELAY, &optval, static_cast<socklen_t> (sizeof optval));
+}
+
+void Socket::setReuseAddr(bool on)
+{
+    int optval = on ? 1 : 0;
+    ::setsockopt(fd_, SOL_SOCKET, SO_REUSEADDR,
+               &optval, static_cast<socklen_t>(sizeof optval));
+  // FIXME CHECK
+}
+
+void Socket::setReusePort(bool on)
+{
+    #ifdef SO_REUSEPORT
+        int optval = on ? 1 : 0;
+        int ret = ::setsockopt(fd_, SOL_SOCKET, SO_REUSEPORT,
+                            &optval, static_cast<socklen_t>(sizeof optval));
+        if (ret < 0 && on)
+        {
+            LOG_ERROR("SO_REUSEPORT failed.");
+        }
+    #else
+        if (on)
+        {
+            LOG_ERROR << "SO_REUSEPORT is not supported.";
+        }
+    #endif
+}
+
+void Socket::setKeepAlive(bool on)
+{
+    int optval = on ? 1 : 0;
+    ::setsockopt(fd_, SOL_SOCKET, SO_KEEPALIVE,
+                    &optval, static_cast<socklen_t>(sizeof optval));
+}
+
+void Socket::shutdownWrite(){
+    if(::shutdown(fd_, SHUT_WR) < 0){
+        LOG_ERROR("socket shutdown err");
+    }
+}
+
+
+// void sockets::shutdownWrite(int sockfd)
+// {
+//   if (::shutdown(sockfd, SHUT_WR) < 0)
+//   {
+//     LOG_SYSERR << "sockets::shutdownWrite";
+//   }
+// }
+
+

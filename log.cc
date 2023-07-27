@@ -1,6 +1,8 @@
 
 #include"log.h"
 
+// __thread char t_errnobuf[512];
+
 using namespace std;
 
 Log::Log(){

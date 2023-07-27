@@ -29,9 +29,9 @@ class TcpConnection;
 
 using TcpConnectionPtr = std::shared_ptr<TcpConnection>;
 
-using ConnectionCallback = function<void(TcpConnectionPtr &)>;
-using CloseCallback  = function<void(TcpConnectionPtr &)>;
-using WriteCompleteCallback = function<void(TcpConnectionPtr &)>;
+using ConnectionCallback = function<void(const TcpConnectionPtr &)>;
+using CloseCallback  = function<void(const TcpConnectionPtr &)>;
+using WriteCompleteCallback = function<void(const TcpConnectionPtr &)>;
 using MessageCallback = function<void(const TcpConnectionPtr&, Buffer *, Timestamp)>;
 
 using HighWaterMarkCallback = function<void(TcpConnectionPtr &, size_t )> ;
@@ -51,16 +51,19 @@ public:
     EventLoop * getLoop()const {return loop_;}
     const string& name(){return name_;}
     const InetAddress& localAddress(){return local_addr_;}
-    const InetAddress &peerAdddress(){return peer_addr_;}
+    const InetAddress &peerAddress(){return peer_addr_;}
 
     // 实际上就是链路的抽象
     void send(void * message, int len);
     void send(string &message);
     void shutdown();
+    void shutdownInLoop();
     void setTcpnodelay(bool on);
 
     void startRead();
-    void stopRead();
+    void stopRead();   
+    void startReadInLoop();
+    void stopReadInLoop();
     bool isReading();
 
     void setConnectionCallback(const ConnectionCallback &cb);
@@ -71,7 +74,12 @@ public:
     void setCloseCallback(const CloseCallback & cb);
     void setHighWaterMarkCallback(const HighWaterMarkCallback & cb);
 
+    void connectEstablished();
     void connectDestroyed();  
+
+
+
+
 
 
     Buffer* inputBuffer();
@@ -86,6 +94,7 @@ private:
 
     void sendInLoop(const void * data, size_t len);
 
+    
 
 
 
@@ -93,6 +102,7 @@ private:
 
 private:
     const string name_;
+    bool reading_;
 
     // 不是baseloop 而是一个 subloop
     EventLoop *loop_;
@@ -122,7 +132,7 @@ private:
     int high_water_mark_ ;
 
     enum StateE{
-        kDisConnected, kConnecting, kConnected, kDisconnection
+        kDisConnected, kConnecting, kConnected, kDisconnecting
     };
     int state_;
 
@@ -136,7 +146,7 @@ private:
 
 
 
-
+int getSocketError(int sockfd);
 
 
 

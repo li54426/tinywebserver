@@ -10,9 +10,9 @@
 class TcpConnection;
 using TcpConnectionPtr = std::shared_ptr<TcpConnection>;
 
-using ConnectionCallback = function<void(TcpConnectionPtr &)>;
-using CloseCallback  = function<void(TcpConnectionPtr &)>;
-using WriteCompleteCallback = function<void(TcpConnectionPtr &)>;
+using ConnectionCallback = function<void(const TcpConnectionPtr &)>;
+using CloseCallback  = function<void(const TcpConnectionPtr &)>;
+using WriteCompleteCallback = function<void(const TcpConnectionPtr &)>;
 using MessageCallback = function<void(const TcpConnectionPtr&, Buffer *, Timestamp)>;
 
 
