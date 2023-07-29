@@ -113,6 +113,7 @@ void EventLoop::loop(){
          * mainLoop事先注册一个回调cb(需要subloop来执行)
          * 唤醒 sub loop 后, 执行 main loop注册的回调
          */
+        // 执行完 doPendingFunctors() 后，代码会继续执行 poll() 操作，等待新的事件发生。
         doPendingFunctors();
 
 

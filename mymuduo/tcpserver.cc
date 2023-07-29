@@ -102,6 +102,7 @@ void TcpServer::newConnection(int sockfd, const InetAddress & peer_addr){
     conn-> setMessageCallback(message_callback_);
     conn->setWriteCompleteCallback(write_complete_callback_);
     conn-> setCloseCallback(std::bind(&TcpServer::removeConnection, this, placeholders::_1));
+    loop_->runInLoop(std::bind(&TcpConnection::connectEstablished, conn));
 }
 
 void TcpServer::removeConnection(const TcpConnectionPtr& conn){
@@ -111,6 +112,8 @@ void TcpServer::removeConnection(const TcpConnectionPtr& conn){
 // 
 void TcpServer::removeConnectionInLoop(const TcpConnectionPtr & conn){
     loop_-> assertInLoopThread();
+    
+    // 找到是哪个 loop 不是 EventLoop 的责任
     EventLoop * io_loop = conn-> getLoop();
     io_loop->queueInLoop(std::bind(&TcpConnection::connectDestroyed, conn));
 
