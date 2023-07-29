@@ -20,11 +20,11 @@ Thread::~Thread(){
 // 开始运行线程, 也就是说, new thread 对象
 void Thread::start(){
     lock_guard<mutex> locker (mtx_);
-    thread_ = std::make_unique<thread>([this](){
+    thread_ .reset(new std::thread([this](){
         pid_ = pthread_self();
         // pid_= std::this_thread::get_id();
         func_();
-    });
+    }));
     
 }
 

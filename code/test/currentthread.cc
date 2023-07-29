@@ -8,9 +8,8 @@ namespace CurrentThread
     {
         if (t_cachedTid == 0)
         {
-            long res = ::syscall(SYS_gettid);
             // 通过系统调用, 获取当前 tid
-            t_cachedTid = static_cast<pid_t>(res);
+            t_cachedTid = static_cast<pid_t>(::syscall(SYS_gettid));
         }
     }
 

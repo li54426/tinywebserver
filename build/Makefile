@@ -145,21 +145,6 @@ acceptor.s:
 .PHONY : acceptor.s
 
 # target to build an object file
-blockqueue.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/testmuduo.dir/build.make CMakeFiles/testmuduo.dir/blockqueue.o
-.PHONY : blockqueue.o
-
-# target to preprocess a source file
-blockqueue.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/testmuduo.dir/build.make CMakeFiles/testmuduo.dir/blockqueue.i
-.PHONY : blockqueue.i
-
-# target to generate assembly for a file
-blockqueue.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/testmuduo.dir/build.make CMakeFiles/testmuduo.dir/blockqueue.s
-.PHONY : blockqueue.s
-
-# target to build an object file
 buffer.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/testmuduo.dir/build.make CMakeFiles/testmuduo.dir/buffer.o
 .PHONY : buffer.o
@@ -218,6 +203,21 @@ currentthread.i:
 currentthread.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/testmuduo.dir/build.make CMakeFiles/testmuduo.dir/currentthread.s
 .PHONY : currentthread.s
+
+# target to build an object file
+defaultpoller.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/testmuduo.dir/build.make CMakeFiles/testmuduo.dir/defaultpoller.o
+.PHONY : defaultpoller.o
+
+# target to preprocess a source file
+defaultpoller.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/testmuduo.dir/build.make CMakeFiles/testmuduo.dir/defaultpoller.i
+.PHONY : defaultpoller.i
+
+# target to generate assembly for a file
+defaultpoller.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/testmuduo.dir/build.make CMakeFiles/testmuduo.dir/defaultpoller.s
+.PHONY : defaultpoller.s
 
 # target to build an object file
 epollpoller.o:
@@ -308,6 +308,21 @@ log.i:
 log.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/testmuduo.dir/build.make CMakeFiles/testmuduo.dir/log.s
 .PHONY : log.s
+
+# target to build an object file
+poller.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/testmuduo.dir/build.make CMakeFiles/testmuduo.dir/poller.o
+.PHONY : poller.o
+
+# target to preprocess a source file
+poller.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/testmuduo.dir/build.make CMakeFiles/testmuduo.dir/poller.i
+.PHONY : poller.i
+
+# target to generate assembly for a file
+poller.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/testmuduo.dir/build.make CMakeFiles/testmuduo.dir/poller.s
+.PHONY : poller.s
 
 # target to build an object file
 socket.o:
@@ -411,9 +426,6 @@ help:
 	@echo "... acceptor.o"
 	@echo "... acceptor.i"
 	@echo "... acceptor.s"
-	@echo "... blockqueue.o"
-	@echo "... blockqueue.i"
-	@echo "... blockqueue.s"
 	@echo "... buffer.o"
 	@echo "... buffer.i"
 	@echo "... buffer.s"
@@ -426,6 +438,9 @@ help:
 	@echo "... currentthread.o"
 	@echo "... currentthread.i"
 	@echo "... currentthread.s"
+	@echo "... defaultpoller.o"
+	@echo "... defaultpoller.i"
+	@echo "... defaultpoller.s"
 	@echo "... epollpoller.o"
 	@echo "... epollpoller.i"
 	@echo "... epollpoller.s"
@@ -444,6 +459,9 @@ help:
 	@echo "... log.o"
 	@echo "... log.i"
 	@echo "... log.s"
+	@echo "... poller.o"
+	@echo "... poller.i"
+	@echo "... poller.s"
 	@echo "... socket.o"
 	@echo "... socket.i"
 	@echo "... socket.s"

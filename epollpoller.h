@@ -2,6 +2,7 @@
 #define EPOLLPOLLER_H
 
 #include"poller.h"
+
 #include"channel.h"
 #include"sys/epoll.h"
 #include<vector>
@@ -21,7 +22,7 @@
 class EpollPoller :public Poller{
 public:
     EpollPoller(EventLoop*);
-    ~EpollPoller();
+    ~EpollPoller() override;
 
      Timestamp poll(int timeoutMs, ChannelList * active_channels) override;
     void updateChannel(Channel * channel) override;

@@ -1,92 +1,97 @@
 [
 {
   "directory": "/home/lihan/tinywebserver/build",
-  "command": "/usr/bin/g++    -g -std=c++14 -fPIC -g -o CMakeFiles/testmuduo.dir/acceptor.o -c /home/lihan/tinywebserver/acceptor.cc",
+  "command": "/usr/bin/g++    -g -std=c++11 -fPIC -g   -g -o CMakeFiles/testmuduo.dir/acceptor.o -c /home/lihan/tinywebserver/acceptor.cc",
   "file": "/home/lihan/tinywebserver/acceptor.cc"
 },
 {
   "directory": "/home/lihan/tinywebserver/build",
-  "command": "/usr/bin/g++    -g -std=c++14 -fPIC -g -o CMakeFiles/testmuduo.dir/blockqueue.o -c /home/lihan/tinywebserver/blockqueue.cc",
-  "file": "/home/lihan/tinywebserver/blockqueue.cc"
-},
-{
-  "directory": "/home/lihan/tinywebserver/build",
-  "command": "/usr/bin/g++    -g -std=c++14 -fPIC -g -o CMakeFiles/testmuduo.dir/buffer.o -c /home/lihan/tinywebserver/buffer.cc",
+  "command": "/usr/bin/g++    -g -std=c++11 -fPIC -g   -g -o CMakeFiles/testmuduo.dir/buffer.o -c /home/lihan/tinywebserver/buffer.cc",
   "file": "/home/lihan/tinywebserver/buffer.cc"
 },
 {
   "directory": "/home/lihan/tinywebserver/build",
-  "command": "/usr/bin/g++    -g -std=c++14 -fPIC -g -o CMakeFiles/testmuduo.dir/callbacks.o -c /home/lihan/tinywebserver/callbacks.cc",
+  "command": "/usr/bin/g++    -g -std=c++11 -fPIC -g   -g -o CMakeFiles/testmuduo.dir/callbacks.o -c /home/lihan/tinywebserver/callbacks.cc",
   "file": "/home/lihan/tinywebserver/callbacks.cc"
 },
 {
   "directory": "/home/lihan/tinywebserver/build",
-  "command": "/usr/bin/g++    -g -std=c++14 -fPIC -g -o CMakeFiles/testmuduo.dir/channel.o -c /home/lihan/tinywebserver/channel.cc",
+  "command": "/usr/bin/g++    -g -std=c++11 -fPIC -g   -g -o CMakeFiles/testmuduo.dir/channel.o -c /home/lihan/tinywebserver/channel.cc",
   "file": "/home/lihan/tinywebserver/channel.cc"
 },
 {
   "directory": "/home/lihan/tinywebserver/build",
-  "command": "/usr/bin/g++    -g -std=c++14 -fPIC -g -o CMakeFiles/testmuduo.dir/currentthread.o -c /home/lihan/tinywebserver/currentthread.cc",
+  "command": "/usr/bin/g++    -g -std=c++11 -fPIC -g   -g -o CMakeFiles/testmuduo.dir/currentthread.o -c /home/lihan/tinywebserver/currentthread.cc",
   "file": "/home/lihan/tinywebserver/currentthread.cc"
 },
 {
   "directory": "/home/lihan/tinywebserver/build",
-  "command": "/usr/bin/g++    -g -std=c++14 -fPIC -g -o CMakeFiles/testmuduo.dir/epollpoller.o -c /home/lihan/tinywebserver/epollpoller.cc",
+  "command": "/usr/bin/g++    -g -std=c++11 -fPIC -g   -g -o CMakeFiles/testmuduo.dir/defaultpoller.o -c /home/lihan/tinywebserver/defaultpoller.cc",
+  "file": "/home/lihan/tinywebserver/defaultpoller.cc"
+},
+{
+  "directory": "/home/lihan/tinywebserver/build",
+  "command": "/usr/bin/g++    -g -std=c++11 -fPIC -g   -g -o CMakeFiles/testmuduo.dir/epollpoller.o -c /home/lihan/tinywebserver/epollpoller.cc",
   "file": "/home/lihan/tinywebserver/epollpoller.cc"
 },
 {
   "directory": "/home/lihan/tinywebserver/build",
-  "command": "/usr/bin/g++    -g -std=c++14 -fPIC -g -o CMakeFiles/testmuduo.dir/eventloop.o -c /home/lihan/tinywebserver/eventloop.cc",
+  "command": "/usr/bin/g++    -g -std=c++11 -fPIC -g   -g -o CMakeFiles/testmuduo.dir/eventloop.o -c /home/lihan/tinywebserver/eventloop.cc",
   "file": "/home/lihan/tinywebserver/eventloop.cc"
 },
 {
   "directory": "/home/lihan/tinywebserver/build",
-  "command": "/usr/bin/g++    -g -std=c++14 -fPIC -g -o CMakeFiles/testmuduo.dir/eventloopthread.o -c /home/lihan/tinywebserver/eventloopthread.cc",
+  "command": "/usr/bin/g++    -g -std=c++11 -fPIC -g   -g -o CMakeFiles/testmuduo.dir/eventloopthread.o -c /home/lihan/tinywebserver/eventloopthread.cc",
   "file": "/home/lihan/tinywebserver/eventloopthread.cc"
 },
 {
   "directory": "/home/lihan/tinywebserver/build",
-  "command": "/usr/bin/g++    -g -std=c++14 -fPIC -g -o CMakeFiles/testmuduo.dir/eventloopthreadpool.o -c /home/lihan/tinywebserver/eventloopthreadpool.cc",
+  "command": "/usr/bin/g++    -g -std=c++11 -fPIC -g   -g -o CMakeFiles/testmuduo.dir/eventloopthreadpool.o -c /home/lihan/tinywebserver/eventloopthreadpool.cc",
   "file": "/home/lihan/tinywebserver/eventloopthreadpool.cc"
 },
 {
   "directory": "/home/lihan/tinywebserver/build",
-  "command": "/usr/bin/g++    -g -std=c++14 -fPIC -g -o CMakeFiles/testmuduo.dir/inetaddress.o -c /home/lihan/tinywebserver/inetaddress.cc",
+  "command": "/usr/bin/g++    -g -std=c++11 -fPIC -g   -g -o CMakeFiles/testmuduo.dir/inetaddress.o -c /home/lihan/tinywebserver/inetaddress.cc",
   "file": "/home/lihan/tinywebserver/inetaddress.cc"
 },
 {
   "directory": "/home/lihan/tinywebserver/build",
-  "command": "/usr/bin/g++    -g -std=c++14 -fPIC -g -o CMakeFiles/testmuduo.dir/log.o -c /home/lihan/tinywebserver/log.cc",
+  "command": "/usr/bin/g++    -g -std=c++11 -fPIC -g   -g -o CMakeFiles/testmuduo.dir/log.o -c /home/lihan/tinywebserver/log.cc",
   "file": "/home/lihan/tinywebserver/log.cc"
 },
 {
   "directory": "/home/lihan/tinywebserver/build",
-  "command": "/usr/bin/g++    -g -std=c++14 -fPIC -g -o CMakeFiles/testmuduo.dir/socket.o -c /home/lihan/tinywebserver/socket.cc",
+  "command": "/usr/bin/g++    -g -std=c++11 -fPIC -g   -g -o CMakeFiles/testmuduo.dir/poller.o -c /home/lihan/tinywebserver/poller.cc",
+  "file": "/home/lihan/tinywebserver/poller.cc"
+},
+{
+  "directory": "/home/lihan/tinywebserver/build",
+  "command": "/usr/bin/g++    -g -std=c++11 -fPIC -g   -g -o CMakeFiles/testmuduo.dir/socket.o -c /home/lihan/tinywebserver/socket.cc",
   "file": "/home/lihan/tinywebserver/socket.cc"
 },
 {
   "directory": "/home/lihan/tinywebserver/build",
-  "command": "/usr/bin/g++    -g -std=c++14 -fPIC -g -o CMakeFiles/testmuduo.dir/tcpconnection.o -c /home/lihan/tinywebserver/tcpconnection.cc",
+  "command": "/usr/bin/g++    -g -std=c++11 -fPIC -g   -g -o CMakeFiles/testmuduo.dir/tcpconnection.o -c /home/lihan/tinywebserver/tcpconnection.cc",
   "file": "/home/lihan/tinywebserver/tcpconnection.cc"
 },
 {
   "directory": "/home/lihan/tinywebserver/build",
-  "command": "/usr/bin/g++    -g -std=c++14 -fPIC -g -o CMakeFiles/testmuduo.dir/tcpserver.o -c /home/lihan/tinywebserver/tcpserver.cc",
+  "command": "/usr/bin/g++    -g -std=c++11 -fPIC -g   -g -o CMakeFiles/testmuduo.dir/tcpserver.o -c /home/lihan/tinywebserver/tcpserver.cc",
   "file": "/home/lihan/tinywebserver/tcpserver.cc"
 },
 {
   "directory": "/home/lihan/tinywebserver/build",
-  "command": "/usr/bin/g++    -g -std=c++14 -fPIC -g -o CMakeFiles/testmuduo.dir/test_main.o -c /home/lihan/tinywebserver/test_main.cc",
+  "command": "/usr/bin/g++    -g -std=c++11 -fPIC -g   -g -o CMakeFiles/testmuduo.dir/test_main.o -c /home/lihan/tinywebserver/test_main.cc",
   "file": "/home/lihan/tinywebserver/test_main.cc"
 },
 {
   "directory": "/home/lihan/tinywebserver/build",
-  "command": "/usr/bin/g++    -g -std=c++14 -fPIC -g -o CMakeFiles/testmuduo.dir/thread.o -c /home/lihan/tinywebserver/thread.cc",
+  "command": "/usr/bin/g++    -g -std=c++11 -fPIC -g   -g -o CMakeFiles/testmuduo.dir/thread.o -c /home/lihan/tinywebserver/thread.cc",
   "file": "/home/lihan/tinywebserver/thread.cc"
 },
 {
   "directory": "/home/lihan/tinywebserver/build",
-  "command": "/usr/bin/g++    -g -std=c++14 -fPIC -g -o CMakeFiles/testmuduo.dir/timestamp.o -c /home/lihan/tinywebserver/timestamp.cc",
+  "command": "/usr/bin/g++    -g -std=c++11 -fPIC -g   -g -o CMakeFiles/testmuduo.dir/timestamp.o -c /home/lihan/tinywebserver/timestamp.cc",
   "file": "/home/lihan/tinywebserver/timestamp.cc"
 }
 ]

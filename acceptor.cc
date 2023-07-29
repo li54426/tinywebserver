@@ -16,6 +16,15 @@ listening_(false), idleFd_(::open ("/dev/null", O_RDONLY | O_CLOEXEC))
     accept_socket_.bindAddress(listen_addr);
 
 }
+
+
+Acceptor::~Acceptor(){
+    accept_channel_.disableAll();
+    accept_channel_.remove();
+    ::close(idleFd_);
+}
+
+
 void Acceptor::listen(){
     // 需要引入 eventloop 头文件
     loop_->assertInLoopThread();
@@ -23,6 +32,8 @@ void Acceptor::listen(){
     accept_socket_.listen();
     accept_channel_.enableReading();
 }
+
+
 bool Acceptor::listening()const{
     return listening_;
 }

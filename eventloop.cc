@@ -27,7 +27,11 @@ bool EventLoop::isInLoopThread(){
 
 }
 
-
+ void EventLoop::assertInLoopThread(){
+    if(!isInLoopThread()){
+        LOG_FATAL("not in thread ");
+    }
+ }
 
 
 

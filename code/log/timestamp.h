@@ -14,7 +14,7 @@ public:
         micro_seconds_since_epoch_(micro_seconds_since_epoch){}
 
     void swap();
-    // 返回 1990 2 3 8:00
+    //返回日期和时间
     string toString()const;
     string toFormattedString()const;
 

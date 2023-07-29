@@ -18,6 +18,7 @@ public:
     using NewConnectionCallback = std::function<void(int sockfd, const InetAddress & )>;
 
     Acceptor(EventLoop * loop, const InetAddress& listen_addr, bool reuseport);
+    ~Acceptor();
     void listen();
     bool listening()const;
 

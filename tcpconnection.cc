@@ -5,8 +5,8 @@ using namespace std:: placeholders;
 TcpConnection::TcpConnection(EventLoop* loop, const string name, 
     int sockfd, const InetAddress &local_addr, 
     const InetAddress &peer_addr):
-    loop_(loop), socket_(make_unique<Socket>(sockfd)),
-    channel_(make_unique<Channel>(loop, sockfd)),
+    loop_(loop), socket_(new Socket(sockfd)),
+    channel_(new Channel(loop, sockfd)),
     local_addr_(local_addr), peer_addr_(peer_addr),
     high_water_mark_(64 * 1024 * 1024)
 {
@@ -286,6 +286,10 @@ int getSocketError(int sockfd)
   }
 }
 
+
+void TcpConnection::setState(StateE state){
+    state_ = state_;
+}
 
 
 Buffer* TcpConnection::inputBuffer(){

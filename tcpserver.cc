@@ -78,7 +78,7 @@ void TcpServer::newConnection(int sockfd, const InetAddress & peer_addr){
     snprintf(buf, sizeof buf, "-%s#%d", ip_port_.c_str(), next_conn_id_);
     ++next_conn_id_;
     string conn_name = name_ + buf;
-    LOG_DEBUG("new connection from %s", peer);
+    LOG_DEBUG("new connection from %s",  peer_addr.toIpPort());
 
     sockaddr_in local;
     memset(&local, 0, sizeof local);

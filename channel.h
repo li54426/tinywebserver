@@ -120,6 +120,7 @@ private:
     EventCallback close_callback_;
     EventCallback error_callback_;
 
+    // string();
 
 };
 

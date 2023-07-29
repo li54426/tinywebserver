@@ -1,3 +1,4 @@
+// #include"poller.h"
 #include"epollpoller.h"
 
 
@@ -22,7 +23,7 @@ events_(kInitEventListSize)
 
 
 EpollPoller::~EpollPoller(){
-    close(epoll_fd_);
+    ::close(epoll_fd_);
 }
 
 

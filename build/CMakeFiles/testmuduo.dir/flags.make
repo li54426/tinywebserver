@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = 
 
-CXX_FLAGS =  -g -std=c++14 -fPIC -g
+CXX_FLAGS =  -g -std=c++11 -fPIC -g   -g
 

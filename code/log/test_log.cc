@@ -17,9 +17,8 @@ int main(){
     log->Write(1, "%s %s", "test", "aaaa");
     LOG_INFO("%s %s", "test", "aaaa" );
     cout<< "after Write"<< '\n';
-    log->FlushLogThread();
-    log-> Flush();
     cout<< "finished all the func"<< '\n';
+    LOG_FATAL("test fatal");
 
-    return 1;
+    return 0;
 }

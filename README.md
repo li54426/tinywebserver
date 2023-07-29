@@ -165,6 +165,29 @@ https://github.com/Cdreamfly/ClusterChatServer
 
 
 
+#### 低级错误
+- 基类 的析构函数没有加上 `virtual`
+- 模板类的声明和定义分开放了 
+模版类的定义和实现不能分开写在不同文件中，否则会导致编译错误
+
+原因：在 C++ 中，在编译阶段才确定对象所占用的空间。模板类只有被真正使用的时候，编译器才知道，模板套用的是什么类型，应该分配多少空间。然后根据套用的类型进行编译。套用不同类型的模板类实际上就是两个不同的类型，因此这两个类型的共同成员函数实质上也不是同一个函数，仅仅是具有相似的功能。因此，模板类在套用不同类型以后，会被编译出不同的代码。
+
+
+
+
+
+```bash
+
+12                  t_cachedTid = static_cast<pid_t>(::syscall(SYS_gettid));
+(gdb) 
+syscall () at ../sysdeps/unix/sysv/linux/x86_64/syscall.S:29
+29      ../sysdeps/unix/sysv/linux/x86_64/syscall.S: 没有那个文件或目录.
+
+
+```
+
+
+
 ### 1 概论
 
 [Note]  1.2- 1.5都来自陈硕大大的书中

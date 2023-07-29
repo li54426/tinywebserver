@@ -15,7 +15,17 @@ void Channel::tie(const std:: shared_ptr<void> & obj){
     tied_ = true;
 }
 
-const int Channel::fd(){
+Channel::~Channel()
+{
+    assert(!event_handling_);
+    assert(!addedToLoop_);
+    if(loop_->isInLoopThread()){
+        assert(!loop_->hasChannel(this));
+    }
+}
+
+const int Channel::fd()
+{
     return fd_;
 }
 
