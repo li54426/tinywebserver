@@ -42,6 +42,8 @@ public:
     TcpServer(EventLoop *, const InetAddress&, const std::string&, Option option = kNoReusePort);
     ~TcpServer();
 
+    EventLoop *getLoop()const;
+
 
     void setConnectionCallback(const ConnectionCallback &cb);
     void setMessageCallback(const MessageCallback &cb);

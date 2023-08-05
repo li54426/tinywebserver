@@ -27,6 +27,11 @@ TcpServer::~TcpServer(){
     }
 }
 
+EventLoop *TcpServer::getLoop() const
+{
+    return loop_;
+}
+
 void TcpServer::setConnectionCallback(const ConnectionCallback &cb){
     connection_callback_ = cb;
 }

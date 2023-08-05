@@ -43,6 +43,11 @@ using HighWaterMarkCallback = function<void(TcpConnectionPtr &, size_t )> ;
 */
 class TcpConnection : public std::enable_shared_from_this<TcpConnection>{
 public:
+    enum StateE{
+        kDisConnected, kConnecting, kConnected, kDisconnecting
+    };
+
+
     TcpConnection(EventLoop* loop, const string name, 
         int sockfd, const InetAddress &local_addr, 
         const InetAddress &peer_addr);
@@ -55,7 +60,8 @@ public:
 
     // 实际上就是链路的抽象
     void send(void * message, int len);
-    void send(string &message);
+    void send(const string &message);
+    void send( Buffer * buf);
     void shutdown();
     void shutdownInLoop();
     void setTcpnodelay(bool on);
@@ -76,6 +82,9 @@ public:
 
     void connectEstablished();
     void connectDestroyed();  
+
+    bool connected(){return state_ == kConnected ; }
+
 
 
 
@@ -131,9 +140,7 @@ private:
 
     int high_water_mark_ ;
 
-    enum StateE{
-        kDisConnected, kConnecting, kConnected, kDisconnecting
-    };
+
     int state_;
 
 

@@ -30,7 +30,14 @@ TcpConnection::TcpConnection(EventLoop* loop, const string name,
 // }
 
 
-
+void TcpConnection::send(Buffer * buf){
+    if(state_ == kConnected){
+        if(loop_->isInLoopThread()){
+            sendInLoop(buf-> Peek(), buf-> ReadableBytes());
+            buf-> RetrieveAll();
+        }
+    }
+}
 
 
 
@@ -40,7 +47,7 @@ void TcpConnection::send(void * message, int len){
 }
 
 
-void TcpConnection::send(string &message){
+void TcpConnection::send(const string &message){
     if(state_ == kConnected){
         // 判断当前代码是否在事件循环所在的线程中运行。
         if(loop_ -> isInLoopThread()){
