@@ -1,0 +1,3 @@
+components: ["filetree", "shell", "console"]
+compile_command: "gcc main.cpp -lstdc++"
+run_command: "./a.out"
